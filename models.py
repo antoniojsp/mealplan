@@ -4,6 +4,7 @@ from pytz import timezone
 from extra import *
 
 class Meals(EmbeddedDocument):
+    present = BooleanField(required=True, default=False)
     dishes = ListField(StringField(max_length=20))
     cooks = ListField(StringField(max_length=20))
 
