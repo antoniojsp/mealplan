@@ -16,17 +16,21 @@ def date_range(start, end):
 def create_mealplan(start_date:str, end_date:str, name_plan:str, user_name:str, meals:list):
     list_dates = date_range(start_date, end_date)
     mealplan_temp = MealPlanner(user_name=user_name, name_mealplan=name_plan)
+    # meals1 = Meals(dishes=[], cooks=[])
+    list_meals = ["Breakfast", "Brunch", "Lunch", "Snack", "Dinner"]
 
     for i, j in zip(list_dates, meals):
         day_temp = Day(date=i)
-        for k in j:
-            day_temp.meal[k] = Meals(dishes=[], cooks=[])
-        temp = i.replace("-", "_")
+        for k in list_meals:
+            if k in j:
+                day_temp.meal[k] = Meals(present=True)
+            else:
+                day_temp.meal[k] = Meals(present=False)
 
+        temp = i.replace("-", "_")
         mealplan_temp.days[temp] = day_temp
 
     mealplan_temp.save()
-
 
 def add_day(name_plan:str, date:str, meals:list):
     day = Day(date=date)
